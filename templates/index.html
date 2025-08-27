@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CORRECTO - Answer Evaluation</title>
+  <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+   <header class="site-header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>CORRECTO</h1>
+      </div>
+  
+      <!-- Hamburger Icon -->
+      <button class="hamburger" id="hamburger">
+        &#9776;
+      </button>
+  
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="result.html">Result</a></li>
+          <li><a href="student.html">Student</a></li>
+          <li><a href="teacher.html">Teacher</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="title">
+    <h1>CORRECTO - Answer Evaluation</h1>
+  </div>
+  
+  <form id="evaluateForm">
+    <label>Key Answer (PDF)</label>
+    <input type="file" id="key_pdf" name="key_pdf" accept="application/pdf">
+
+    <label>Student Answer (Image)</label>
+    <input type="file" id="student_image" name="student_image" accept="image/*">
+
+    <hr>
+
+    <p>OR enter text directly below:</p>
+
+    <label>Key Answer (Text)</label>
+    <textarea id="key_text" name="key_text" rows="4" placeholder="Enter the correct answer here..."></textarea>
+
+    <label>Student Answer (Text)</label>
+    <textarea id="student_text" name="student_text" rows="4" placeholder="Enter the student's answer here..."></textarea>
+
+    <button type="submit">Evaluate Answer</button>
+  </form>
+
+  <div id="result"></div>
+
+  <div id="loading" style="display:none; font-weight: bold; color: blue;">Evaluating... Please wait...</div>
+
+<div id="result" style="display:none;">
+  <h2>Evaluation Result</h2>
+  <p><strong>Extracted Student Answer:</strong></p>
+  <pre id="studentAnswer" style="background: #f0f0f0; padding: 10px; border: 1px solid #ccc;"></pre>
+  <p><strong>Score:</strong> <span id="score" style="color: green; font-size: 20px;"></span> / 100</p>
+</div>
+<div id="resultBox" style="display:none; font-weight: bold; color: blue;"></div>
+
+<footer>
+    <p>&copy; Naanum_Engineerthaa Studio.</p>
+  </footer>
+
+<script>
+  const form = document.getElementById('evaluateForm');
+  const resultBox = document.getElementById('resultBox');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Show loading message
+    resultBox.style.display = 'block';
+    resultBox.style.color = 'blue';
+    resultBox.textContent = 'Evaluating... Please wait...';
+
+    const formData = new FormData();
+    const keyPdf = document.getElementById('key_pdf').files[0];
+    const studentImg = document.getElementById('student_image').files[0];
+    const keyText = document.getElementById('key_text').value.trim();
+    const studentText = document.getElementById('student_text').value.trim();
+
+    if (keyPdf) formData.append("key_pdf", keyPdf);
+    if (studentImg) formData.append("student_image", studentImg);
+    if (keyText) formData.append("key_text", keyText);
+    if (studentText) formData.append("student_text", studentText);
+
+    try {
+      const res = await fetch('/evaluate', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.score !== undefined) {
+        resultBox.style.color = 'black';
+        resultBox.innerHTML = `
+          <h2>Evaluation Result</h2>
+          <p><strong>Extracted Student Answer:</strong></p>
+          <pre style="background: #f0f0f0; padding: 10px; border: 1px solid #ccc;">${data.student_answer}</pre>
+          <p><strong>Score:</strong> <span style="color: green; font-size: 20px;">${data.score}</span> / 100</p>
+        `;
+      } else {
+        resultBox.style.color = 'red';
+        resultBox.textContent = "Evaluation failed: " + (data.error || "Unknown error");
+      }
+    } catch (err) {
+      resultBox.style.color = 'red';
+      resultBox.textContent = "Server error. Please try again.";
+    }
+  });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluation Result</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>CORRECTO</h1>
+      </div>
+
+      <button class="hamburger" id="hamburger">&#9776;</button>
+
+      <nav class="nav-menu" id="navMenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="result.html">Result</a></li>
+          <li><a href="student.html">Student</a></li>
+          <li><a href="teacher.html">Teacher</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="result-container">
+    <h1>Evaluation Result</h1>
+
+    <p><strong>Marks:</strong> {{ marks }}/100</p>
+
+    {% if mistakes %}
+      <div>
+        <h3>Mistakes / Suggestions</h3>
+        <p>{{ mistakes }}</p>
+      </div>
+    {% endif %}
+
+    {% if corrected_pdf_download_link %}
+      <div>
+        <h3>Download Corrected PDF</h3>
+        <form action="{{ corrected_pdf_download_link }}" method="get">
+          <button type="submit">Download Corrected Answer</button>
+        </form>
+      </div>
+    {% endif %}
+
+    {% if docx_download_link %}
+      <div>
+        <h3>Download Extracted Answer (DOCX)</h3>
+        <form action="{{ docx_download_link }}" method="get">
+          <button type="submit">Download DOCX</button>
+        </form>
+      </div>
+    {% endif %}
+  </main>
+
+  <footer>
+    <p>&copy; Naanum_Engineerthaa Studio.</p>
+  </footer>
+</body>
+</html>

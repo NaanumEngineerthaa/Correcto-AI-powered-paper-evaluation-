@@ -1,0 +1,9 @@
+venv/  __pycache__/  *.pyc 
+F:\mini project\local correcto\correcto_project\venv\Lib\site-packages\torch\lib\torch_cpu.dll
+F:\mini project\local correcto\correcto_project\venv\Lib\site-packages\torch\lib\dnnl.lib
+F:\mini project\local correcto\correcto_project\models\mistral-7b-instruct-v0.2.Q4_K_M.gguf
+F:\mini project\local correcto\correcto_project\.git\objects\pack\pack-c4320b66f4d731cf8032ba8c575f95b6cc82fbc0.pack
+# Ignore large files  /R %F in (*) do @if %~zF GTR 104857600 echo %~pnxF) 
+models/
+*.gguf
+*.bin
