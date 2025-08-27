@@ -7,3 +7,11 @@ F:\mini project\local correcto\correcto_project\.git\objects\pack\pack-c4320b66f
 models/
 *.gguf
 *.bin
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.log
+.DS_Store
