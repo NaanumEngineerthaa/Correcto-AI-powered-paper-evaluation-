@@ -105,3 +105,11 @@ Create a feature branch (git checkout -b feature-name)
 Commit changes (git commit -m "Added new feature")
 
 Push and create a Pull Request
+--------------------------------------------------------------------------------
+If you want to liberty and dependence(if not exist in internet)
+download it
+https://mega.nz/folder/CtIjDRJY#ObfnQEWeG0u5VLMb715xkg
+
+--------------------------------------------------------------------------------
+Alternative project link by MEGA
+https://mega.nz/folder/TkwXmRCB#IYhTFUvioAbfb9bXs_J_mQ
